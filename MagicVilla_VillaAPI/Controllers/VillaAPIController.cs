@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using MagicVilla_VillaAPI.Data;
+
 using MagicVilla_VillaAPI.Models;
-using MagicVilla_VillaAPI.Models.DTO;
+using MagicVilla_VillaAPI.Models.DTO.VillaDTO;
 using MagicVilla_VillaAPI.Repository.IRepository;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+
 
 namespace MagicVilla_VillaAPI.Controllers
 {
@@ -13,7 +13,7 @@ namespace MagicVilla_VillaAPI.Controllers
     [ApiController] // define this class as an controller
     public class VillaAPIController : ControllerBase //controllerBase used when we are using our contoller only as an api but when we use MVC we change it to Controller
     {
-        protected APIResponse _response
+        protected APIResponse _response;
         private readonly IVillaRepository _dbVilla;
         private readonly IMapper _mapper;
 
