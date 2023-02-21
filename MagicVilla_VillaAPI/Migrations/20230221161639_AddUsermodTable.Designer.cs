@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace MagicVilla_VillaAPI.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230220121706_MyVillaNumberMigration")]
-    partial class MyVillaNumberMigration
+    [Migration("20230221161639_AddUsermodTable")]
+    partial class AddUsermodTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -23,6 +23,27 @@ namespace MagicVilla_VillaAPI.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
+
+            modelBuilder.Entity("MagicVilla_VillaAPI.Models.Usermod", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
+
+                    b.Property<string>("LastName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Usermod");
+                });
 
             modelBuilder.Entity("MagicVilla_VillaAPI.Models.Villa", b =>
                 {
@@ -72,66 +93,66 @@ namespace MagicVilla_VillaAPI.Migrations
                         {
                             Id = 1,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7947),
+                            CreatedDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2859),
                             Details = "https://dotnetmasteryimages.blob.core.windows.net/bluevillaimages/villa.jpg",
                             ImageUrl = "",
                             Name = "Royal Villa",
                             Occupancy = 4,
                             Rate = 200.0,
                             Sqft = 550,
-                            UpdateDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7958)
+                            UpdateDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2871)
                         },
                         new
                         {
                             Id = 2,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7960),
+                            CreatedDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2874),
                             Details = "https://dotnetmasteryimages.blob.core.windows.net/bluevillaimages/villa.jpg",
                             ImageUrl = "",
                             Name = "Royal Villa2",
                             Occupancy = 4,
                             Rate = 200.0,
                             Sqft = 550,
-                            UpdateDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7960)
+                            UpdateDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2875)
                         },
                         new
                         {
                             Id = 3,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7961),
+                            CreatedDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2876),
                             Details = "https://dotnetmasteryimages.blob.core.windows.net/bluevillaimages/villa.jpg",
                             ImageUrl = "",
                             Name = "Royal Villa3",
                             Occupancy = 4,
                             Rate = 200.0,
                             Sqft = 550,
-                            UpdateDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7962)
+                            UpdateDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2877)
                         },
                         new
                         {
                             Id = 4,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7962),
+                            CreatedDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2944),
                             Details = "https://dotnetmasteryimages.blob.core.windows.net/bluevillaimages/villa.jpg",
                             ImageUrl = "",
                             Name = "Royal Villa4",
                             Occupancy = 4,
                             Rate = 200.0,
                             Sqft = 550,
-                            UpdateDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7963)
+                            UpdateDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2945)
                         },
                         new
                         {
                             Id = 5,
                             Amenity = "",
-                            CreatedDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7964),
+                            CreatedDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2947),
                             Details = "https://dotnetmasteryimages.blob.core.windows.net/bluevillaimages/villa.jpg",
                             ImageUrl = "",
                             Name = "Royal Villa5",
                             Occupancy = 4,
                             Rate = 200.0,
                             Sqft = 550,
-                            UpdateDate = new DateTime(2023, 2, 20, 13, 17, 6, 307, DateTimeKind.Local).AddTicks(7964)
+                            UpdateDate = new DateTime(2023, 2, 21, 17, 16, 38, 833, DateTimeKind.Local).AddTicks(2948)
                         });
                 });
 
@@ -150,9 +171,25 @@ namespace MagicVilla_VillaAPI.Migrations
                     b.Property<DateTime>("UpdatedDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("VillaID")
+                        .HasColumnType("int");
+
                     b.HasKey("VillaNo");
 
+                    b.HasIndex("VillaID");
+
                     b.ToTable("VillaNumbers");
+                });
+
+            modelBuilder.Entity("MagicVilla_VillaAPI.Models.VillaNumber", b =>
+                {
+                    b.HasOne("MagicVilla_VillaAPI.Models.Villa", "Villa")
+                        .WithMany()
+                        .HasForeignKey("VillaID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Villa");
                 });
 #pragma warning restore 612, 618
         }

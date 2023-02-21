@@ -2,7 +2,6 @@
 using MagicVilla_VillaAPI.Models;
 using MagicVilla_VillaAPI.Models.DTO.VillaNumberDTO;
 using MagicVilla_VillaAPI.Repository.IRepository;
-using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
 
@@ -14,11 +13,13 @@ namespace MagicVilla_VillaAPI.Controllers
     {
         protected APIResponse _response;
         private readonly IVillaNumberRepository _dbVillaNumber;
+        private readonly IVillaRepository _dbVilla;
         private readonly IMapper _mapper;
 
-        public VillaNumberAPIController(IVillaNumberRepository dbVilla, IMapper mapper)
+        public VillaNumberAPIController(IVillaNumberRepository dbVillaNumber,IVillaRepository dbVilla, IMapper mapper)
         {
-            _dbVillaNumber = dbVilla;
+            _dbVillaNumber = dbVillaNumber;
+            _dbVilla = dbVilla;
             _mapper = mapper;
             this._response = new();
         }
@@ -99,6 +100,11 @@ namespace MagicVilla_VillaAPI.Controllers
                     ModelState.AddModelError("CustomError", "VillaNumber Already Exists!");
                     return BadRequest(ModelState);
                 }
+                if(await _dbVilla.GetAsync(u => u.Id == createDTO.VillaID)==null){
+                    ModelState.AddModelError("CustomError", "Villa ID is Invalid!");
+                    return BadRequest(ModelState);
+                }
+
                 if (createDTO == null) return BadRequest();
 
                 VillaNumber villaNumber = _mapper.Map<VillaNumber>(createDTO);
@@ -166,6 +172,11 @@ namespace MagicVilla_VillaAPI.Controllers
                 {
                     return BadRequest();
                 }
+                if(await _dbVilla.GetAsync(u => u.Id == updateDTO.VillaID)==null){
+                    ModelState.AddModelError("CustomError", "Villa ID is Invalid!");
+                    return BadRequest(ModelState);
+                }
+
                 VillaNumber model = _mapper.Map<VillaNumber>(updateDTO);
 
                 await _dbVillaNumber.UpdateAsync(model);
